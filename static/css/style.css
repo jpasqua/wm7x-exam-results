@@ -1,0 +1,56 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 40px;
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.banner img {
+    height: 100px;
+    margin-right: 20px;
+}
+
+.banner-title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.banner-subtitle {
+    font-size: 0.9em;
+    color: #555;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="file"],
+input[type="submit"] {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #0066cc;
+}
+
+form div {
+    margin-bottom: 10px;
+}

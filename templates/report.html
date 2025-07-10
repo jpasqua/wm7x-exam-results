@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ exam_type }} Exam Results for {{ applicant }}</h1>
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+<ul>
+{% for item in report %}
+  <li>
+    <strong>{{ item.designator }}</strong>: {{ item.question }}<br>
+    You answered {{ item.your_answer_letter }}: {{ item.your_answer_text }}<br>
+    Correct is {{ item.correct_answer_letter }}: {{ item.correct_answer_text }}
+  </li>
+{% endfor %}
+</ul>
+<a href="{{ url_for('index') }}">Upload another</a>
+{% endblock %}

@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+    <title>
+        {% block pagetitle %}{{ exam_type }} Results for {{ applicant }} — WM7X{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="banner">
+        <img src="{{ url_for('static', filename='images/WM7XLogo.png') }}" alt="WM7X Logo">
+        <div>
+            <div class="banner-title">WM7X Exam Results</div>
+            <div class="banner-subtitle">For convenience only, not part of ExamTools.org</div>
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

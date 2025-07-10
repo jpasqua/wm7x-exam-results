@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Upload Exam Results</h1>
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
+<p><b>Choose</b> an ExamTools results PDF, then <b>Process Results</b> to generate a summary of missed questions.</p>
+<form method="post" enctype="multipart/form-data">
+  <div>
+    <input type="file" name="pdf_file" accept=".pdf,application/pdf">
+  </div>
+  <div style="margin-top: 10px;">
+    <input type="submit" value="Process Results">
+  </div>
+</form>
+{% endblock %}
