@@ -9,8 +9,15 @@
 {% for item in report %}
   <li>
     <strong>{{ item.designator }}</strong>: {{ item.question }}<br>
-    You answered {{ item.your_answer_letter }}: {{ item.your_answer_text }}<br>
-    Correct is {{ item.correct_answer_letter }}: {{ item.correct_answer_text }}
+    You answered {{ item.your_answer_letter }}:
+    {% if item.your_answer_letter == item.correct_answer_letter %}
+      <span style="color: green;">{{ item.your_answer_text }}</span>
+    {% else %}
+      <span style="color: red;">{{ item.your_answer_text }}</span>
+    {% endif %}
+    <br>
+    Correct is {{ item.correct_answer_letter }}:
+    <span style="color: green;">{{ item.correct_answer_text }}</span>
   </li>
 {% endfor %}
 </ul>
