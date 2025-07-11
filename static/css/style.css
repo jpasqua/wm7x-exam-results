@@ -79,3 +79,10 @@ form div {
 .button:hover {
     background-color: #333333;
 }
+
+.help-section img {
+    display: block;
+    max-width: 100%;
+    margin-top: 10px;
+    height: auto;
+}
