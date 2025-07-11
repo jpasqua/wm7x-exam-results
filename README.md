@@ -16,7 +16,6 @@ It identifies missed questions, looks up the question texts and correct answers,
 ✅ Clean, responsive web interface  
 ✅ Automatically deletes uploaded files after processing
 
----
 
 ## Project structure
 
@@ -33,7 +32,6 @@ It identifies missed questions, looks up the question texts and correct answers,
     └── extra.json
 ```
 
----
 
 ## Setup (local development)
 
@@ -69,18 +67,103 @@ flask run
 http://127.0.0.1:5000/
 ```
 
+
+## PythonAnywhere Deployment Checklist
+
+### 1️⃣ Prepare code repository
+
+* Push all project files to a GitHub repository  
+* Ensure:
+
+- `requirements.txt` lists all dependencies (`pip freeze > requirements.txt`)  
+- `.gitignore` excludes `venv/`, `__pycache__/`, etc.  
+- `LICENSE` and `README.md` are included  
+
+
+### 2️⃣ Log into PythonAnywhere
+
+* Go to https://www.pythonanywhere.com  
+* Open **Dashboard**
+
+### 3️⃣ Clone project into PythonAnywhere
+
+In **Bash console**:
+
+```bash
+cd ~
+git clone https://github.com/jpasqua/wm7x-exam-results.git wm7x-exam-results
+cd wm7x-exam-results
+```
+
+*(Use SSH clone if using private repo + deploy keys)*
+
+
+### 4️⃣ Create virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### 5️⃣ Set up web app
+
+In **PythonAnywhere Web tab**:
+
+* Create **Manual → Python 3.10 app**  
+* Set:
+
+	- Working directory: `/home/kr4ml/wm7x-exam-results`
+	- Virtualenv path: `/home/kr4ml/wm7x-exam-results/venv`
+
+### 6️⃣ Configure WSGI file
+
+Edit WSGI configuration (linked in Web tab, usually `/var/www/kr4ml_pythonanywhere_com_wsgi.py`). Copy the content of `/home/kr4ml/wm7x-exam-results/wsgi.py`.
+
+
+### 7️⃣ Reload web app
+
+* Go to Web tab  
+* Click **Reload**
+
+
+### 8️⃣ Check logs (if needed)
+
+Go to **Web tab → Log files**
+
+- `error log` → Python errors, exceptions  
+- `access log` → HTTP requests  
+- `server log` → server events
+
+To tail logs live:
+```bash
+tail -f /var/log/kr4ml.pythonanywhere.com.error.log
+```
+
+
+### 🔄 Updating app in the future
+
+```bash
+cd ~/wm7x-exam-results
+git pull
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Then go to Web tab → **Reload**.
+
 ---
 
-## Deployment (PythonAnywhere)
+### ✅ Summary
 
-- Create a PythonAnywhere account
-- Link to your GitHub repository
-- Set up a Flask web app
-- Point the **WSGI configuration** to `app.py`
-- Run `pip install -r requirements.txt`
-- Set environment variable `FLASK_ENV=production` (optional, for safety)
+You now have:
 
----
+* Code on PythonAnywhere  
+* Virtual environment with dependencies  
+* Web app wired to Flask app  
+* Logs ready for debugging  
+* Easy Git-based updates
+
 
 ## Notes
 
@@ -88,12 +171,11 @@ http://127.0.0.1:5000/
 - No exam or user data is saved.
 - The question pool JSON files must match the current active exam pools.
 
----
 
 ## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-## Notes
+## Disclaimers
 
 Not affiliated with ExamTools.org - provided as a tool for the WM7X team.
