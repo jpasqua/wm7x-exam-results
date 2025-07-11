@@ -2,24 +2,25 @@
 
 {% block content %}
 <h1>{{ exam_type }} Exam Results for {{ applicant }}</h1>
+
 {% if message %}
 <p>{{ message }}</p>
 {% endif %}
+
 <ul>
 {% for item in report %}
   <li>
     <strong>{{ item.designator }}</strong>: {{ item.question }}<br>
-    You answered {{ item.your_answer_letter }}:
-    {% if item.your_answer_letter == item.correct_answer_letter %}
-      <span style="color: green;">{{ item.your_answer_text }}</span>
-    {% else %}
-      <span style="color: red;">{{ item.your_answer_text }}</span>
-    {% endif %}
-    <br>
-    Correct is {{ item.correct_answer_letter }}:
+    You answered <strong>{{ item.your_answer_letter }}</strong>:
+    <span style="color: red;">{{ item.your_answer_text }}</span><br>
+    Correct is <strong>{{ item.correct_answer_letter }}</strong>:
     <span style="color: green;">{{ item.correct_answer_text }}</span>
   </li>
 {% endfor %}
 </ul>
-<a href="{{ url_for('index') }}">Upload another</a>
+
+<form action="{{ url_for('index') }}" method="get">
+    <button type="submit" class="button">Upload another</button>
+</form>
+
 {% endblock %}

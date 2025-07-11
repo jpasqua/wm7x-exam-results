@@ -2,16 +2,37 @@
 
 {% block content %}
 <h1>Upload Exam Results</h1>
+
 {% if error %}
 <p style="color:red;">{{ error }}</p>
 {% endif %}
+
 <p><b>Choose</b> an ExamTools results PDF, then <b>Process Results</b> to generate a summary of missed questions.</p>
+
 <form method="post" enctype="multipart/form-data">
   <div>
-    <input type="file" name="pdf_file" accept=".pdf,application/pdf">
+    <!-- Hidden file input -->
+    <input type="file" id="pdf_file" name="pdf_file" accept=".pdf,application/pdf" class="file-input">
+    <!-- Styled label as button -->
+    <label for="pdf_file" class="button">Choose File</label>
+    <!-- File name display -->
+    <span id="file-name">No file selected</span>
   </div>
   <div style="margin-top: 10px;">
-    <input type="submit" value="Process Results">
+    <input type="submit" value="Process Results" class="button">
   </div>
 </form>
+
+<!-- JS to display selected file name -->
+<script>
+document.getElementById('pdf_file').addEventListener('change', function() {
+    const fileNameSpan = document.getElementById('file-name');
+    if (this.files.length > 0) {
+        fileNameSpan.textContent = this.files[0].name;
+    } else {
+        fileNameSpan.textContent = 'No file selected';
+    }
+});
+</script>
+
 {% endblock %}
