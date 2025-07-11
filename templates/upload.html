@@ -14,9 +14,9 @@
     <!-- Hidden file input -->
     <input type="file" id="pdf_file" name="pdf_file" accept=".pdf,application/pdf" class="file-input">
     <!-- Styled label as button -->
-    <label for="pdf_file" class="button">Choose File</label>
+    <label for="pdf_file" class="button">Choose Exam PDF</label>
     <!-- File name display -->
-    <span id="file-name">No file selected</span>
+    <span id="file-name">No exam selected yet</span>
   </div>
   <div style="margin-top: 10px;">
     <input type="submit" value="Process Results" class="button">
@@ -30,7 +30,7 @@ document.getElementById('pdf_file').addEventListener('change', function() {
     if (this.files.length > 0) {
         fileNameSpan.textContent = this.files[0].name;
     } else {
-        fileNameSpan.textContent = 'No file selected';
+        fileNameSpan.textContent = 'No exam selected';
     }
 });
 </script>
