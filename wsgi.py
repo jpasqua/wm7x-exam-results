@@ -1,30 +1,33 @@
-"""
-WSGI entry point for PythonAnywhere deployment.
-
-This file is used ONLY when deploying on PythonAnywhere or another WSGI server.
-If you are running the app locally for development, you should use:
-
-    flask run
-
-or
-
-    python app.py
-
-You do NOT need to run this file directly.
-
-It exposes the WSGI-compatible 'application' object for the server to run.
-"""
+# This file contains the WSGI configuration required to serve up your
+# web application at http://kr4ml.pythonanywhere.com/
+# It works by setting the variable 'application' to a WSGI handler of some
+# description.
+#
 
 import sys
 import os
 
-# Add your project directory to the sys.path
-project_home = os.path.dirname(os.path.abspath(__file__))
+"""
+PythonAnywhere WSGI configuration file.
+
+This file tells PythonAnywhere how to load the Flask app.
+
+You do NOT run this file directly.
+You do NOT need to rename your app.py to flask_app.py.
+
+We add the project directory to sys.path and point WSGI to the Flask app
+inside app.py (imported as 'application').
+"""
+
+# Full path to your project folder
+project_home = '/home/kr4ml/wm7x-exam-results'
+
+# Add the project directory to the sys.path if it's not already there
 if project_home not in sys.path:
     sys.path.insert(0, project_home)
 
-# Set environment variable (optional, but good practice)
+# Optionally set environment variable
 os.environ['FLASK_ENV'] = 'production'
 
-# Import your Flask app
+# Import the Flask app object as 'application' for WSGI to use
 from app import app as application
