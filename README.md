@@ -12,8 +12,7 @@ It identifies missed questions, looks up the question texts and correct answers,
 ✅ Upload ExamTools results PDF  
 ✅ Identify missed questions  
 ✅ Show full question text and correct answers  
-✅ Display exam type (Technician, General, Amateur Extra)  
-✅ Clean, responsive web interface  
+✅ Display exam type (Technician, General, Amateur Extra)   
 ✅ Automatically deletes uploaded files after processing
 
 
