@@ -5,8 +5,11 @@
         {% block pagetitle %}{{ exam_type }} Results for {{ applicant }} — WM7X{% endblock %}
     </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
+    <!-- Favicon and App Icons from wm7x.net -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-180x180.png">
+    <meta name="msapplication-TileImage" content="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-270x270.png"></head>
 <body>
     <div class="banner">
         <img src="{{ url_for('static', filename='images/WM7XLogo.png') }}" alt="WM7X Logo">
