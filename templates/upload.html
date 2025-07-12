@@ -7,15 +7,12 @@
 <p style="color:red;">{{ error }}</p>
 {% endif %}
 
-
-<form method="post" enctype="multipart/form-data">
-  <div>
-    <!-- Hidden file input -->
+<form method="post" enctype="multipart/form-data" id="upload-form">
+  <div id="dropzone" class="dropzone">
     <input type="file" id="pdf_file" name="pdf_file" accept=".pdf,application/pdf" class="file-input">
-    <!-- Styled label as button -->
     <label for="pdf_file" class="button">Choose Exam PDF</label>
-    <!-- File name display -->
     <span id="file-name">No exam selected yet</span>
+    <br><span style="font-size: 0.9em; color: #555;">Or drag and drop the PDF file here</span>
   </div>
   <div style="margin-top: 10px;">
     <input type="submit" value="Process Results" class="button">
@@ -58,6 +55,35 @@ document.getElementById('pdf_file').addEventListener('change', function() {
     } else {
         fileNameSpan.textContent = 'No exam selected';
     }
+});
+</script>
+
+<!-- JS to support drag and drop of file -->
+<script>
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('pdf_file');
+const fileNameSpan = document.getElementById('file-name');
+
+dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropzone.classList.add('dragover');
+});
+
+dropzone.addEventListener('dragleave', () => {
+    dropzone.classList.remove('dragover');
+});
+
+dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('dragover');
+    if (e.dataTransfer.files.length > 0) {
+        fileInput.files = e.dataTransfer.files;
+        fileNameSpan.textContent = e.dataTransfer.files[0].name;
+    }
+});
+
+fileInput.addEventListener('change', function() {
+    fileNameSpan.textContent = this.files[0]?.name || 'No exam selected yet';
 });
 </script>
 
