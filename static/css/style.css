@@ -105,3 +105,11 @@ form div {
     border-color: #888;
     background-color: #f9f9f9;
 }
+
+.button-name {
+    background-color: #888888;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
