@@ -21,8 +21,8 @@ def parse_exam_pdf(pdf_path):
     # Regex to extract lines like: "1. T6B02: A (should be C)"
     line_regex = re.compile(r'\d+\.\s+([TGE]\d[A-Z]\d{2}):\s+([A-D])(?:\s+\(should be\s+([A-D])\))?')
 
-    # Regex to extract applicant name from line like: "Enzo B Cabral (PIN: 5341)"
-    name_regex = re.compile(r'^([A-Za-z\'\- ]+)\s+\(PIN:\s*\d{4}\)(?:\s+PASS)?$')
+    # Regex to extract applicant name from line like: "Joe F Blow (PIN: 1234)"
+    name_regex = re.compile(r'^([A-Za-z\'\- ]+)\s+\(PIN:\s*\d{4}\)', re.IGNORECASE)
 
     with pdfplumber.open(pdf_path) as pdf:
         for page_num, page in enumerate(pdf.pages):
