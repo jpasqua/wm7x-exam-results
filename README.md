@@ -54,13 +54,19 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4️⃣ Run the app:
+4️⃣ Set the Flask app environment variable
+
+```bash
+export FLASK_APP=app.py
+```
+
+5️⃣ Run the app:
 
 ```bash
 flask run
 ```
 
-5️⃣ Open in browser:
+6️⃣ Open in browser:
 
 ```
 http://127.0.0.1:5000/
