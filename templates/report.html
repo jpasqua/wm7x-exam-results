@@ -19,8 +19,13 @@
 {% endfor %}
 </ul>
 
-<form action="{{ url_for('index') }}" method="get">
+<form action="{{ url_for('index') }}" method="get" class="no-print">
     <button type="submit" class="button">Upload another</button>
 </form>
+
+<footer class="disclaimer">
+  <p>This report is provided “as-is” for convenience and is not affiliated with or endorsed by ExamTools.org.<br>
+  Always double-check your results.</p>
+</footer>
 
 {% endblock %}
