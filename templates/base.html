@@ -11,16 +11,11 @@
     <link rel="apple-touch-icon" sizes="180x180" href="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-180x180.png">
     <meta name="msapplication-TileImage" content="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-270x270.png"></head>
 <body>
-<div class="banner">
-    <div class="banner-left">
-        <img src="{{ url_for('static', filename='images/WM7XLogo.png') }}" alt="WM7X Logo">
-    </div>
-    <div class="banner-center">
+<div class="banner-side">
+    <img src="{{ url_for('static', filename='images/WM7XLogo.png') }}" alt="WM7X Logo" class="banner-image">
+    <div class="banner-text">
         <div class="banner-title">WM7X Exam Results</div>
         <div class="banner-subtitle">For convenience only, not part of ExamTools.org</div>
-    </div>
-    <div class="banner-right">
-        <!-- Future content goes here -->
     </div>
 </div>
     {% block content %}{% endblock %}
