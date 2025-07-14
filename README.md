@@ -64,6 +64,8 @@ export FLASK_APP=app.py
 
 ```bash
 flask run
+# OR
+flask --debug run
 ```
 
 6️⃣ Open in browser:
