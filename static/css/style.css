@@ -126,3 +126,16 @@ form div {
     display: none;
   }
 }
+
+.score-inline {
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+.score-pass {
+    color: #4d6d4d;  /* muted green */
+}
+
+.score-fail {
+    color: #8b4d4d;  /* muted red */
+}

@@ -46,7 +46,8 @@ def index():
 
         try:
             # Parse the PDF to extract applicant name and missed questions
-            applicant_name, missed = processor.parse_exam_pdf(temp_path)
+            applicant_name, score, missed = processor.parse_exam_pdf(temp_path)
+            print(f"[DEBUG] Score extracted: {score}")
 
             # Case: no applicant name and no questions → probably invalid file
             if not applicant_name and not missed:
@@ -64,7 +65,8 @@ def index():
                     applicant=applicant_name,
                     exam_type=exam_type,
                     report=[],
-                    message='No missed questions found.'
+                    message='No missed questions found.',
+                    score=score
                 )
 
             # Normal case: missed questions exist
@@ -76,7 +78,8 @@ def index():
                 'report.html',
                 applicant=applicant_name,
                 exam_type=exam_type,
-                report=detailed_report
+                report=detailed_report,
+                score=score
             )
 
         except Exception as e:

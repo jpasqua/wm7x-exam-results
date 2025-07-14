@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ exam_type }} Exam Results for {{ applicant }}</h1>
+<h1>
+  {{ exam_type }} Exam Results for {{ applicant }}
+  {% if score %}
+    <span class="score-inline {% if score.status == 'Passed' %}score-pass{% else %}score-fail{% endif %}">
+      ({{ score.correct }}/{{ score.total }})
+    </span>
+  {% endif %}
+</h1>
 
 {% if message %}
 <p>{{ message }}</p>

@@ -17,10 +17,14 @@ def parse_exam_pdf(pdf_path):
     """
     missed_questions = []
     applicant_name = None
+    score = None
 
     # Regex to extract lines like: "1. T6B02: A (should be C)"
     line_regex = re.compile(r'\d+\.\s+([TGE]\d[A-Z]\d{2}):\s+([A-D])(?:\s+\(should be\s+([A-D])\))?')
-
+    score_regex = re.compile(
+        r'Test (Passed|Failed)\s*-\s*(\d+)\s+out of\s+(\d+)',
+        re.IGNORECASE
+)
     # Regex to extract applicant name from line like: "Joe F Blow (PIN: 1234)"
     name_regex = re.compile(r'^([A-Za-z\'\- ]+)\s+\(PIN:\s*\d{4}\)', re.IGNORECASE)
 
@@ -33,10 +37,26 @@ def parse_exam_pdf(pdf_path):
             # On first page, try to extract applicant name from top lines
             if page_num == 0:
                 for line in text.split('\n'):
+                    # Find applicant name
                     name_match = name_regex.match(line.strip())
                     if name_match:
                         applicant_name = name_match.group(1).strip()
-                        break
+                        continue
+
+                    # Find score line (after name)
+                    score_match = score_regex.search(line.strip())
+                    if score_match:
+                        status = score_match.group(1).capitalize()
+                        correct = int(score_match.group(2))
+                        total = int(score_match.group(3))
+                        incorrect = total - correct
+                        score = {
+                            'status': status,
+                            'correct': correct,
+                            'total': total,
+                            'incorrect': incorrect
+                        }
+                        continue
 
             # Define bounding boxes for left and right columns
             left_bbox = (0, 0, width / 2, height)
@@ -69,7 +89,7 @@ def parse_exam_pdf(pdf_path):
 
     # Sort missed questions by designator (e.g., T1A01, T1A02)
     missed_questions.sort(key=lambda x: x['designator'])
-    return applicant_name, missed_questions
+    return applicant_name, score, missed_questions
 
 def load_question_pool(first_designator):
     """
