@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% block pagetitle %}WM7X Results Helper{% endblock %}
 {% block content %}
-<h1>Help Reviewing Exam Results</h1>
 
 {% if error %}
 <p style="color:red;">{{ error }}</p>
 {% endif %}
 
-<form method="post" enctype="multipart/form-data" id="upload-form">
+<form method="post" enctype="multipart/form-data" class="upload-form">
   <div id="dropzone" class="dropzone">
     <input type="file" id="pdf_file" name="pdf_file" accept=".pdf,application/pdf" class="file-input">
     <label for="pdf_file" class="button">Choose Exam PDF</label>

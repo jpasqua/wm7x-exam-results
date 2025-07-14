@@ -6,12 +6,18 @@ body {
 .banner {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.banner img {
-    height: 100px;
+.banner-left img {
+    height: 80px;
     margin-right: 20px;
+}
+
+.banner-center {
+    flex: 1;
+    text-align: center;
 }
 
 .banner-title {
@@ -22,6 +28,11 @@ body {
 .banner-subtitle {
     font-size: 0.9em;
     color: #555;
+}
+
+.banner-right {
+    width: 80px; /* reserve space for future content */
+    text-align: right;
 }
 
 h1 {
@@ -87,13 +98,20 @@ form div {
     height: auto;
 }
 
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
 .dropzone {
-    display: inline-block;      /* shrink-wrap to content */
+    display: inline-block;
     border: 2px dashed #bbb;
-    padding: 4px;
-    padding-right: 10px;
+    padding: 8px 16px;
     text-align: center;
     border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .dropzone .button,
