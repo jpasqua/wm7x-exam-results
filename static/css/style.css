@@ -92,20 +92,57 @@ form div {
     background-color: #338833;  /* slightly darker on hover */
 }
 
+/* Always center and constrain width */
+details.help-section {
+    max-width: 400px;
+    margin: 30px auto;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+/* Summary (Need Help?) appearance */
+details.help-section summary {
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    padding: 12px 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+details.help-section summary:hover {
+    text-decoration: underline;
+    background-color: #e8e8e8;
+}
+
+details.help-section ol {
+    padding-inline-start: 10px;  /* reduce default indentation */
+}
+
+/* Only add card look when open */
+details.help-section[open] {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    padding: 16px;
+    background-color: #fafafa;
+}
+
+/* Adjust summary when open (pull to card edges) */
+details.help-section[open] summary {
+    margin: -16px -16px 16px -16px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Responsive images */
 .help-section img {
     display: block;
     max-width: 100%;
     margin-top: 10px;
     height: auto;
-}
-
-details.help-section summary {
-    cursor: pointer;
-    user-select: none;
-}
-
-details.help-section summary:hover {
-    text-decoration: underline;
 }
 
 .upload-form {
@@ -166,4 +203,8 @@ details.help-section summary:hover {
 
 .score-fail {
     color: #8b4d4d;  /* muted red */
+}
+
+.button + .button {
+    margin-left: 10px;
 }
