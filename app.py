@@ -34,11 +34,11 @@ def index():
         file = request.files.get('pdf_file')
         if not file or file.filename == '':
             # No file provided
-            return render_template('upload.html', error='No file selected.')
+            return render_template('upload.html', error='Please select a file')
 
         if not file.filename.lower().endswith('.pdf'):
             # Invalid file type
-            return render_template('upload.html', error='Only PDF files are allowed.')
+            return render_template('upload.html', error='Only PDF files are allowed')
 
         # Save the uploaded file to a temp location
         temp_path = os.path.join(app.config['UPLOAD_FOLDER'], 'uploaded.pdf')
