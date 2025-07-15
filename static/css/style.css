@@ -187,7 +187,8 @@ details.help-section[open] summary {
 .disclaimer {
   font-size: 0.8em;
   color: #555;
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
