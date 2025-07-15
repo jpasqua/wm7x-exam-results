@@ -1,6 +1,7 @@
-from flask import Flask, request, render_template
 import os
+from flask import Flask, request, render_template
 import processor  # local module for PDF parsing and reporting
+from config import BRANDING_PROFILES, DEFAULT_BRAND
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -8,6 +9,12 @@ app = Flask(__name__)
 # Configuration: where to save uploads and max file size (16 MB)
 app.config['UPLOAD_FOLDER'] = '/tmp'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+@app.context_processor
+def inject_branding():
+    selected = request.args.get('brand', DEFAULT_BRAND).upper()
+    branding = BRANDING_PROFILES.get(selected, BRANDING_PROFILES[DEFAULT_BRAND])
+    return dict(branding=branding)
 
 def exam_type_from_designator(designator):
     """

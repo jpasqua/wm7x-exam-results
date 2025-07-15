@@ -2,20 +2,23 @@
 <html>
 <head>
     <title>
-        {% block pagetitle %}{{ exam_type }} Results for {{ applicant }} — WM7X{% endblock %}
+        {% block pagetitle %}{{ exam_type }} Results for {{ applicant }} — {{ branding.callsign }}{% endblock %}
     </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- Favicon and App Icons from wm7x.net -->
-    <link rel="icon" type="image/png" sizes="32x32" href="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-180x180.png">
-    <meta name="msapplication-TileImage" content="https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-270x270.png"></head>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="{{ branding.favicons[0].size }}" href="{{ branding.favicons[0].href }}">
+    <link rel="icon" type="image/png" sizes="{{ branding.favicons[1].size }}" href="{{ branding.favicons[1].href }}">
+    <link rel="apple-touch-icon" sizes="{{ branding.favicons[2].size }}" href="{{ branding.favicons[2].href }}">
+    <meta name="msapplication-TileImage" content="{{ branding.favicons[3].href }}">
+
+</head>
 <body>
 <div class="banner-side">
-    <img src="{{ url_for('static', filename='images/WM7XLogo.png') }}" alt="WM7X Logo" class="banner-image">
+    <img src="{{ url_for('static', filename=branding.logo_path) }}" alt="{{ branding.callsign }} Logo" class="banner-image">
     <div class="banner-text">
-        <div class="banner-title">WM7X Exam Results</div>
-        <div class="banner-subtitle">For convenience only, not part of ExamTools.org</div>
+        <div class="banner-title">{{ branding.site_name }}</div>
+        <div class="banner-subtitle">{{ branding.subtitle }}</div>
     </div>
 </div>
     {% block content %}{% endblock %}

@@ -35,8 +35,8 @@
     Save as PDF
 </button>
 
-<form action="{{ url_for('index') }}" method="get" class="no-print" style="display: inline;">
-    <button type="submit" class="button no-print button-muted">Process another</button>
-</form>
+<a href="{{ url_for('index', brand=branding.callsign) }}" class="button no-print button-muted">
+  Process another
+</a>
 
 {% endblock %}
