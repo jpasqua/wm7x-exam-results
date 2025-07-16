@@ -4,15 +4,15 @@ DEFAULT_BRAND = 'KR4ML'
 
 BRANDING_PROFILES = {
     'WM7X': {
-        'logo_path': 'images/WM7XLogo.png',
+        'logo_path': 'images/WM7X/WM7XLogo.png',
         'callsign': 'WM7X',
         'site_name': 'WM7X Exam Results',
         'subtitle': 'For convenience only, not part of ExamTools.org',
         'favicons': [
-            {'size': '32x32', 'href': 'https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-32x32.png'},
-            {'size': '192x192', 'href': 'https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-192x192.png'},
-            {'size': '180x180', 'href': 'https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-180x180.png'},
-            {'size': '270x270', 'href': 'https://wm7x.net/wp-content/uploads/2022/10/cropped-Site-Icon-270x270.png'}
+            {'size': '32x32', 'href': '/static/images/WM7X/favicon-32x32.png'},
+            {'size': '192x192', 'href': '/static/images/WM7X/favicon-192x192.png'},
+            {'size': '180x180', 'href': '/static/images/WM7X/apple-touch-icon.png'},
+            {'size': '270x270', 'href': '/static/images/WM7X/mstile-270x270.png'}
         ]
     },
     'KR4ML': {
