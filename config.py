@@ -26,5 +26,17 @@ BRANDING_PROFILES = {
             {'size': '180x180', 'href': '/static/images/KR4ML/apple-touch-icon.png'},
             {'size': '270x270', 'href': '/static/images/KR4ML/mstile-270x270.png'}
         ]
+    },
+    'KQ4DX': {
+        'logo_path': 'images/KQ4DX/KQ4DXLogo.png',
+        'callsign': 'KQ4DX',
+        'site_name': 'KQ4DX Exam Results',
+        'subtitle': 'For convenience only, not part of ExamTools.org',
+        'favicons': [
+            {'size': '32x32', 'href': '/static/images/KQ4DX/favicon-32x32.png'},
+            {'size': '192x192', 'href': '/static/images/KQ4DX/favicon-192x192.png'},
+            {'size': '180x180', 'href': '/static/images/KQ4DX/apple-touch-icon.png'},
+            {'size': '270x270', 'href': '/static/images/KQ4DX/mstile-270x270.png'}
+        ]
     }
 }
