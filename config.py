@@ -38,5 +38,17 @@ BRANDING_PROFILES = {
             {'size': '180x180', 'href': '/static/images/KQ4DX/apple-touch-icon.png'},
             {'size': '270x270', 'href': '/static/images/KQ4DX/mstile-270x270.png'}
         ]
+    },
+    'KE7WYG': {
+        'logo_path': 'images/KE7WYG/KE7WYGLogo.png',
+        'callsign': 'KE7WYG',
+        'site_name': 'KE7WYG Exam Results',
+        'subtitle': 'For convenience only, not part of ExamTools.org',
+        'favicons': [
+            {'size': '32x32', 'href': '/static/images/KE7WYG/favicon-32x32.png'},
+            {'size': '192x192', 'href': '/static/images/KE7WYG/favicon-192x192.png'},
+            {'size': '180x180', 'href': '/static/images/KE7WYG/apple-touch-icon.png'},
+            {'size': '270x270', 'href': '/static/images/KE7WYG/mstile-270x270.png'}
+        ]
     }
 }
