@@ -21,6 +21,7 @@ It identifies missed questions, looks up the question texts and correct answers,
 ```
 /ham_exam_web/
 ├── app.py              # Flask app
+├── config.py           # App config options
 ├── processor.py        # Core parsing + reporting logic
 ├── requirements.txt    # Python dependencies
 ├── static/             # CSS and image assets
@@ -31,6 +32,31 @@ It identifies missed questions, looks up the question texts and correct answers,
     └── extra.json
 ```
 
+## Branding
+
+The app can present itself with different branding based on a case-insensitive URL parameter: `brand`. For example, on a local host one could use the URL:
+
+`http://127.0.0.1:5000/?brand=kr4ml`
+
+This will display branding (images, text, favicon) that is specific to the `KR4ML` brand, assuming it has been properly configured in the `config.py` file. If no brand parameter is found, the default brand will be used. To add a brand to the configuration, you'll need to edit `config.py` and add a stanza like this one:
+
+```json
+    'KR4ML': {
+        'logo_path': 'images/KR4ML/KR4MLLogo.jpg',
+        'callsign': 'KR4ML',
+        'site_name': 'KR4ML Exam Results',
+        'subtitle': 'For convenience only, not part of ExamTools.org',
+        'favicons': [
+            {'size': '32x32', 'href': '/static/images/KR4ML/favicon-32x32.png'},
+            {'size': '192x192', 'href': '/static/images/KR4ML/favicon-192x192.png'},
+            {'size': '180x180', 'href': '/static/images/KR4ML/apple-touch-icon.png'},
+            {'size': '270x270', 'href': '/static/images/KR4ML/mstile-270x270.png'}
+        ]
+    },
+
+```
+
+The images can be hosted locally or remotely. For remotely hosted images, a full URL is required. The default brand is also specified in `config.py` with the key `DEFAULT_BRAND`.
 
 ## Setup (local development)
 
