@@ -39,16 +39,16 @@ BRANDING_PROFILES = {
             {'size': '270x270', 'href': '/static/images/KQ4DX/mstile-270x270.png'}
         ]
     },
-    'KE7WYG': {
-        'logo_path': 'images/KE7WYG/KE7WYGLogo.png',
-        'callsign': 'KE7WYG',
-        'site_name': 'KE7WYG Exam Results',
+    'WAVE': {
+        'logo_path': 'images/WAVE/WAVELogo.png',
+        'callsign': 'WAVE',
+        'site_name': 'WAVE Exam Results',
         'subtitle': 'For convenience only, not part of ExamTools.org',
         'favicons': [
-            {'size': '32x32', 'href': '/static/images/KE7WYG/favicon-32x32.png'},
-            {'size': '192x192', 'href': '/static/images/KE7WYG/favicon-192x192.png'},
-            {'size': '180x180', 'href': '/static/images/KE7WYG/apple-touch-icon.png'},
-            {'size': '270x270', 'href': '/static/images/KE7WYG/mstile-270x270.png'}
+            {'size': '32x32', 'href': '/static/images/WAVE/favicon-32x32.png'},
+            {'size': '192x192', 'href': '/static/images/WAVE/favicon-192x192.png'},
+            {'size': '180x180', 'href': '/static/images/WAVE/apple-touch-icon.png'},
+            {'size': '270x270', 'href': '/static/images/WAVE/mstile-270x270.png'}
         ]
     }
 }
