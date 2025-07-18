@@ -38,9 +38,9 @@ The app can present itself with different branding based on a case-insensitive U
 
 `http://127.0.0.1:5000/?brand=kr4ml`
 
-This will display branding (images, text, favicon) that is specific to the `KR4ML` brand, assuming it has been properly configured in the `config.py` file. If no brand parameter is found, the default brand will be used. To add a brand to the configuration, you'll need to edit `config.py` and add a stanza like this one:
+This will display branding (images, text, favicon) that is specific to the `KR4ML` brand, assuming it has been properly configured in the `config.py` file. If no brand parameter is found, the default brand will be used. To add a brand to the configuration, you'll need to edit `config.py` and add a stanza like the one for KR4ML below:
 
-```json
+```python
     'KR4ML': {
         'logo_path': 'images/KR4ML/KR4MLLogo.jpg',
         'callsign': 'KR4ML',
@@ -52,11 +52,12 @@ This will display branding (images, text, favicon) that is specific to the `KR4M
             {'size': '180x180', 'href': '/static/images/KR4ML/apple-touch-icon.png'},
             {'size': '270x270', 'href': '/static/images/KR4ML/mstile-270x270.png'}
         ]
-    },
-
+    }
 ```
 
-The images can be hosted locally or remotely. For remotely hosted images, a full URL is required. The default brand is also specified in `config.py` with the key `DEFAULT_BRAND`.
+The images can be hosted locally or remotely. For remotely hosted images, a full URL is required. For locally hosted images, place the image files in the `static/images` directory in a subdirectory named for the brand; e.g. `static/images/KR4ML`.
+
+The default brand is also specified in `config.py` with the key `DEFAULT_BRAND`.
 
 ## Setup (local development)
 
