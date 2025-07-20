@@ -54,7 +54,6 @@ def index():
         try:
             # Parse the PDF to extract applicant name and missed questions
             applicant_name, score, missed = processor.parse_exam_pdf(temp_path)
-            print(f"[DEBUG] Score extracted: {score}")
 
             # Case: no applicant name and no questions → probably invalid file
             if not applicant_name and not missed:
