@@ -6,14 +6,20 @@
 </h1>
 
 {% for exam in results %}
+  {% if not loop.first %}
+    <hr>
+  {% endif %}
   <section class="exam-report">
-    <h2>{{ exam.exam_type }} Exam
+    <h3>{{ exam.exam_type }} Exam
+      {% if exam.date %}
+        <span class="exam-date">{{ exam.date }}</span>
+      {% endif %}
       {% if exam.score %}
         <span class="score-inline {% if exam.score.status == 'Passed' %}score-pass{% else %}score-fail{% endif %}">
           ({{ exam.score.correct }}/{{ exam.score.total }})
         </span>
       {% endif %}
-    </h2>
+    </h3>
 
     {% if exam.report %}
     <ol>

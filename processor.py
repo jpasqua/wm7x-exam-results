@@ -22,16 +22,20 @@ def parse_exam_pdf(pdf_path):
         "exam_designator": None,
         "designators": [],
         "missed": [],
-        "score": None
+        "score": None,
+        "date": None
     })
 
     line_regex = re.compile(r'\d+\.\s+([TGE]\d[A-Z]\d{2}):\s+([A-D])(?:\s+\(should be\s+([A-D])\))?')
     score_regex = re.compile(r'Test (Passed|Failed)\s*-\s*(\d+)\s+out of\s+(\d+)', re.IGNORECASE)
     name_regex = re.compile(r'^([A-Za-z\'\- ]+)\s+\(PIN:\s*\d{4}\)', re.IGNORECASE)
+    date_regex = re.compile(r"Exam started at (.+? UTC) by")
 
     with pdfplumber.open(pdf_path) as pdf:
         for page_num, page in enumerate(pdf.pages):
             score_match = None
+            date_time_match = None
+
             text = page.extract_text()
             if not text:
                 continue
@@ -57,6 +61,12 @@ def parse_exam_pdf(pdf_path):
                             "total": total,
                             "incorrect": total - correct_count
                         }
+
+                # Extract date / time of exam
+                if not date_time_match:
+                    date_time_match = date_regex.search(line)
+                    if date_time_match:
+                        exams[page_num]["date"] = date_time_match.group(1)
 
             # Process left and right columns
             width, height = page.width, page.height
@@ -98,6 +108,7 @@ def parse_exam_pdf(pdf_path):
         results.append({
             "exam_type": exam_type_from_designator(exam["exam_designator"]),
             "score": exam["score"],
+            "date": exam["date"],
             "report": detailed_report
         })
 
