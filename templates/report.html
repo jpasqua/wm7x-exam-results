@@ -7,8 +7,10 @@
 
 {% for exam in results %}
   {% if not loop.first %}
-    <hr>
+    <hr class="exam-divider">
+    <div class="page-break"></div>
   {% endif %}
+
   <section class="exam-report">
     <h3>{{ exam.exam_type }} Exam
       {% if exam.date %}
