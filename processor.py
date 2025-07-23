@@ -5,91 +5,131 @@ import os
 
 def parse_exam_pdf(pdf_path):
     """
-    Parses an ExamTools results PDF to extract:
-    - The applicant's name
-    - A list of missed questions with their designators, chosen answers, and correct answers
-
-    Args:
-        pdf_path (str): Path to the uploaded PDF file
-
-    Returns:
-        tuple: (applicant_name (str or None), missed_questions (list of dict))
+    Parses a multi-exam PDF and returns:
+    - applicant_name (str or None)
+    - results: list of exam results (one per element)
+    Each exam result is a dict with:
+      - exam_type (str)
+      - score (dict)
+      - report (list of dicts with missed question details)
     """
-    missed_questions = []
-    applicant_name = None
-    score = None
+    import collections
+    import re
+    import pdfplumber
 
-    # Regex to extract lines like: "1. T6B02: A (should be C)"
+    applicant_name = None
+    exams = collections.defaultdict(lambda: {
+        "exam_designator": None,
+        "designators": [],
+        "missed": [],
+        "score": None,
+        "date": None
+    })
+
     line_regex = re.compile(r'\d+\.\s+([TGE]\d[A-Z]\d{2}):\s+([A-D])(?:\s+\(should be\s+([A-D])\))?')
-    score_regex = re.compile(
-        r'Test (Passed|Failed)\s*-\s*(\d+)\s+out of\s+(\d+)',
-        re.IGNORECASE
-)
-    # Regex to extract applicant name from line like: "Joe F Blow (PIN: 1234)"
+    score_regex = re.compile(r'Test (Passed|Failed)\s*-\s*(\d+)\s+out of\s+(\d+)', re.IGNORECASE)
     name_regex = re.compile(r'^([A-Za-z\'\- ]+)\s+\(PIN:\s*\d{4}\)', re.IGNORECASE)
+    date_regex = re.compile(r"Exam started at (.+? UTC) by")
 
     with pdfplumber.open(pdf_path) as pdf:
         for page_num, page in enumerate(pdf.pages):
-            width = page.width
-            height = page.height
-            text = page.extract_text()
+            score_match = None
+            date_time_match = None
 
-            # On first page, try to extract applicant name from top lines
-            if page_num == 0:
-                for line in text.split('\n'):
-                    # Find applicant name
-                    name_match = name_regex.match(line.strip())
+            text = page.extract_text()
+            if not text:
+                continue
+
+            for line in text.split('\n'):
+                line = line.strip()
+
+                # Extract applicant name (only from first page)
+                if page_num == 0 and not applicant_name:
+                    name_match = name_regex.match(line)
                     if name_match:
                         applicant_name = name_match.group(1).strip()
-                        continue
 
-                    # Find score line (after name)
-                    score_match = score_regex.search(line.strip())
+                # Extract score
+                if not score_match:
+                    score_match = score_regex.search(line)
                     if score_match:
-                        status = score_match.group(1).capitalize()
-                        correct = int(score_match.group(2))
-                        total = int(score_match.group(3))
-                        incorrect = total - correct
-                        score = {
-                            'status': status,
-                            'correct': correct,
-                            'total': total,
-                            'incorrect': incorrect
+                        status, correct_count, total = score_match.groups()
+                        correct_count, total = int(correct_count), int(total)
+                        exams[page_num]["score"] = {
+                            "status": status.capitalize(),
+                            "correct": correct_count,
+                            "total": total,
+                            "incorrect": total - correct_count
                         }
-                        continue
 
-            # Define bounding boxes for left and right columns
-            left_bbox = (0, 0, width / 2, height)
-            right_bbox = (width / 2, 0, width, height)
+                # Extract date / time of exam
+                if not date_time_match:
+                    date_time_match = date_regex.search(line)
+                    if date_time_match:
+                        exams[page_num]["date"] = date_time_match.group(1)
 
-            # Extract text from both columns
-            left_text = page.crop(left_bbox).extract_text()
-            right_text = page.crop(right_bbox).extract_text()
+            # Process left and right columns
+            width, height = page.width, page.height
+            left_text = page.crop((0, 0, width / 2, height)).extract_text() or ''
+            right_text = page.crop((width / 2, 0, width, height)).extract_text() or ''
+            all_lines = (left_text + '\n' + right_text).split('\n')
 
-            # Combine lines from both columns
-            all_lines = []
-            if left_text:
-                all_lines.extend(left_text.split('\n'))
-            if right_text:
-                all_lines.extend(right_text.split('\n'))
-
-            # Parse each line for missed questions
+            exam_designator = None
             for line in all_lines:
+                line = line.strip()
                 match = line_regex.search(line)
                 if match:
-                    designator = match.group(1)
-                    chosen = match.group(2)
-                    correct = match.group(3) if match.group(3) else chosen
+                    designator, chosen, correct = match.groups()
+                    if not exam_designator:
+                        exam_designator = designator
+                    correct = correct if correct else chosen
                     if chosen != correct:
-                        missed_questions.append({
+                        exams[page_num]["missed"].append({
                             "designator": designator,
                             "chosen": chosen,
                             "correct": correct
                         })
+                        exams[page_num]["designators"].append(designator)
 
-    # Sort missed questions by designator (e.g., T1A01, T1A02)
-    missed_questions.sort(key=lambda x: x['designator'])
-    return applicant_name, score, missed_questions
+            exams[page_num]["exam_designator"] = exam_designator
+
+    # Post-process and sort results
+    results = []
+    for page_num in sorted(exams):
+        exam = exams[page_num]
+        if not exam["exam_designator"]:
+            continue
+
+        # Sort missed questions by designator
+        exam["missed"].sort(key=lambda x: x['designator'])
+
+        pool = load_question_pool(exam["exam_designator"])
+        detailed_report = build_detailed_report(exam["missed"], pool)
+        results.append({
+            "exam_type": exam_type_from_designator(exam["exam_designator"]),
+            "score": exam["score"],
+            "date": exam["date"],
+            "report": detailed_report
+        })
+
+    return applicant_name, results
+
+def exam_type_from_designator(designator):
+    """
+    Given a question designator like 'T6B02', return the exam type.
+
+    Args:
+        designator (str): The question designator (e.g., 'T1A01', 'G4B02', 'E1A05')
+
+    Returns:
+        str: 'Technician', 'General', 'Amateur Extra', or 'Unknown' if the prefix is not recognized.
+    """
+    exam_type_map = {
+        'T': 'Technician',
+        'G': 'General',
+        'E': 'Amateur Extra'
+    }
+    return exam_type_map.get(designator[0].upper(), 'Unknown')
 
 def load_question_pool(first_designator):
     """
