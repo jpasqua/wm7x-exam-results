@@ -2,29 +2,36 @@
 
 {% block content %}
 <h1>
-  {{ exam_type }} Exam Results for {{ applicant }}
-  {% if score %}
-    <span class="score-inline {% if score.status == 'Passed' %}score-pass{% else %}score-fail{% endif %}">
-      ({{ score.correct }}/{{ score.total }})
-    </span>
-  {% endif %}
+  Exam Results for {{ applicant }}
 </h1>
 
-{% if message %}
-<p>{{ message }}</p>
-{% endif %}
+{% for exam in results %}
+  <section class="exam-report">
+    <h2>{{ exam.exam_type }} Exam
+      {% if exam.score %}
+        <span class="score-inline {% if exam.score.status == 'Passed' %}score-pass{% else %}score-fail{% endif %}">
+          ({{ exam.score.correct }}/{{ exam.score.total }})
+        </span>
+      {% endif %}
+    </h2>
 
-<ul>
-{% for item in report %}
-  <li>
-    <strong>{{ item.designator }}</strong>: {{ item.question }}<br>
-    You answered <strong>{{ item.your_answer_letter }}</strong>:
-    <span style="color: red;">{{ item.your_answer_text }}</span><br>
-    Correct is <strong>{{ item.correct_answer_letter }}</strong>:
-    <span style="color: green;">{{ item.correct_answer_text }}</span>
-  </li>
+    {% if exam.report %}
+    <ol>
+      {% for item in exam.report %}
+        <li>
+          <strong>{{ item.designator }}</strong>: {{ item.question }}<br>
+          You answered <strong>{{ item.your_answer_letter }}</strong>:
+          <span style="color: red;">{{ item.your_answer_text }}</span><br>
+          Correct is <strong>{{ item.correct_answer_letter }}</strong>:
+          <span style="color: green;">{{ item.correct_answer_text }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+      <p>No missed questions.</p>
+    {% endif %}
+  </section>
 {% endfor %}
-</ul>
 
 <footer class="disclaimer">
   <p>This report is provided “as-is” for convenience and is not affiliated with or endorsed by ExamTools.org.<br>
@@ -38,5 +45,4 @@
 <a href="{{ url_for('index', brand=branding.callsign) }}" class="button no-print button-muted">
   Process another
 </a>
-
 {% endblock %}
