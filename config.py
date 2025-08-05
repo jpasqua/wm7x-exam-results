@@ -39,6 +39,18 @@ BRANDING_PROFILES = {
             {'size': '270x270', 'href': '/static/images/KQ4DX/mstile-270x270.png'}
         ]
     },
+    'NZ3C': {
+        'logo_path': 'images/NZ3C/NZ3CLogo.png',
+        'callsign': 'NZ3C',
+        'site_name': 'NZ3C Exam Results',
+        'subtitle': 'For convenience only, not part of ExamTools.org',
+        'favicons': [
+            {'size': '32x32', 'href': '/static/images/NZ3C/favicon-32x32.png'},
+            {'size': '192x192', 'href': '/static/images/NZ3C/favicon-192x192.png'},
+            {'size': '180x180', 'href': '/static/images/NZ3C/apple-touch-icon.png'},
+            {'size': '270x270', 'href': '/static/images/NZ3C/mstile-270x270.png'}
+        ]
+    },
     'WAVE': {
         'logo_path': 'images/WAVE/WAVELogo.png',
         'callsign': 'WAVE',
