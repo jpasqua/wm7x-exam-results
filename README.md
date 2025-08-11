@@ -204,7 +204,14 @@ When you've completed these steps you will have:
 - Uploaded PDFs are stored temporarily on the server and **deleted immediately after processing**.
 - No exam or user data is saved.
 - The question pool JSON files must match the current active exam pools.
+- To create favicons for a new "brand", either design custom icons at the sizes listed below, or start with the logo for the brand (e.g. `BrandLogo.jpeg`) and apply the `imagemagik convert` command as follows:
 
+```bash
+convert BrandLogo.jpeg -resize 32x32   favicon-32x32.png
+convert BrandLogo.jpeg -resize 192x192 favicon-192x192.png
+convert BrandLogo.jpeg -resize 180x180 apple-touch-icon.png
+convert BrandLogo.jpeg -resize 270x270 mstile-270x270.png
+```
 
 ## License
 
