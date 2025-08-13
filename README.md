@@ -201,6 +201,8 @@ When you've completed these steps you will have:
 
 ## Notes
 
+- The JSON files which contain the exam content and correct answers are sourced from this [repo](https://github.com/russolsen/ham_radio_question_pool). Our thanks for making these available with the [Apache 2.0 License](https://github.com/russolsen/ham_radio_question_pool#Apache-2.0-1-ov-file). **Note**: *These files must be updated any time the question pool changes.*
+
 - Uploaded PDFs are stored temporarily on the server and **deleted immediately after processing**.
 - No exam or user data is saved.
 - The question pool JSON files must match the current active exam pools.
